@@ -27,8 +27,9 @@ package org.jsfr.json;
 import tools.jackson.core.FormatSchema;
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
+import tools.jackson.core.ObjectReadContext;
 import tools.jackson.core.json.JsonFactory;
-import tools.jackson.core.json.async.NonBlockingJsonParserBase;
+import tools.jackson.core.json.async.NonBlockingByteArrayJsonParser;
 import org.jsfr.json.provider.JsonProvider;
 
 import java.io.IOException;
@@ -39,9 +40,9 @@ public class Jackson3Parser implements JsonParserAdapter {
 
     private static class JacksonNonblockingParser extends JacksonResumableParser implements NonBlockingParser {
 
-        private NonBlockingJsonParserBase nonBlockingJsonParser;
+        private NonBlockingByteArrayJsonParser nonBlockingJsonParser;
 
-        JacksonNonblockingParser(NonBlockingJsonParserBase jsonParser, SurfingContext context) {
+        JacksonNonblockingParser(NonBlockingByteArrayJsonParser jsonParser, SurfingContext context) {
             super(jsonParser, context);
             this.nonBlockingJsonParser = jsonParser;
         }
@@ -172,7 +173,7 @@ public class Jackson3Parser implements JsonParserAdapter {
                     case END_ARRAY:
                         context.endArray();
                         break;
-                    case FIELD_NAME:
+                    case PROPERTY_NAME:
                         context.startObjectEntry(jsonParser.currentName());
                         break;
                     case VALUE_STRING:
@@ -276,7 +277,8 @@ public class Jackson3Parser implements JsonParserAdapter {
     @Override
     public NonBlockingParser createNonBlockingParser(SurfingContext context) {
         try {
-            NonBlockingJsonParserBase jp = (NonBlockingJsonParserBase) factory.createNonBlockingByteArrayParser();
+            NonBlockingByteArrayJsonParser jp = (NonBlockingByteArrayJsonParser)
+                factory.createNonBlockingByteArrayParser(ObjectReadContext.empty());
             if (formatSchema != null) {
                 jp.setSchema(formatSchema);
             }
