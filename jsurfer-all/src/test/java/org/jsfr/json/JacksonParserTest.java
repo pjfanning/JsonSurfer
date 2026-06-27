@@ -35,7 +35,6 @@ import com.fasterxml.jackson.dataformat.protobuf.schema.ProtobufSchemaLoader;
 import org.apache.avro.Schema;
 import org.jsfr.json.provider.JacksonProvider;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -77,7 +76,6 @@ public class JacksonParserTest extends JsonSurferTest {
     }
 
     @Test
-    @Ignore
     public void testProtobufParser() throws Exception {
         JsonPathListener mockListener = mock(JsonPathListener.class);
 
