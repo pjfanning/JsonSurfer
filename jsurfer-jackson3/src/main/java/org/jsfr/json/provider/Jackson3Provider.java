@@ -121,10 +121,9 @@ public class Jackson3Provider implements JsonProvider<ObjectNode, ArrayNode, Jso
         try {
             if (value == null) {
                 return null;
-            } else if (om.canDeserialize(om.getTypeFactory().constructType(tClass))) {
+            } else  {
                 return om.treeToValue(value, tClass);
-            } else {
-                return tClass.cast(value);
+                //return tClass.cast(value);
             }
         } catch (JacksonException e) {
             throw new JsonSurfingException(e);

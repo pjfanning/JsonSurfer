@@ -24,7 +24,6 @@
 
 package org.jsfr.json;
 
-import tools.jackson.core.FormatSchema;
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
 import tools.jackson.core.ObjectReadContext;
@@ -216,16 +215,11 @@ public class Jackson3Parser implements JsonParserAdapter {
     public static final Jackson3Parser INSTANCE = new Jackson3Parser(JSON_FACTORY);
 
     private JsonFactory factory;
-    private FormatSchema formatSchema;
 
     public Jackson3Parser(JsonFactory factory) {
         this.factory = factory;
     }
 
-    public Jackson3Parser(JsonFactory factory, FormatSchema formatSchema) {
-        this.factory = factory;
-        this.formatSchema = formatSchema;
-    }
     @Override
     public void parse(Reader reader, final SurfingContext context) {
         createResumableParser(reader, context).parse();
@@ -279,20 +273,14 @@ public class Jackson3Parser implements JsonParserAdapter {
         try {
             NonBlockingByteArrayJsonParser jp = (NonBlockingByteArrayJsonParser)
                 factory.createNonBlockingByteArrayParser(ObjectReadContext.empty());
-            if (formatSchema != null) {
-                jp.setSchema(formatSchema);
-            }
             return new JacksonNonblockingParser(jp, context);
-        } catch (IOException e) {
+        } catch (Exception e) {
             context.getConfig().getErrorHandlingStrategy().handleParsingException(e);
         }
         return null;
     }
 
     private JacksonResumableParser createResumableParser(final JsonParser jp, SurfingContext context) {
-        if (this.formatSchema != null) {
-            jp.setSchema(formatSchema);
-        }
         return new JacksonResumableParser(jp, context);
     }
 
