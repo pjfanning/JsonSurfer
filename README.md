@@ -215,7 +215,7 @@ For example, if you want to surfer with CBOR data, firstly, CBOR format backend 
     <dependency>
         <groupId>com.fasterxml.jackson.dataformat</groupId>
         <artifactId>jackson-dataformat-cbor</artifactId>
-        <version>${jackson.version}</version>
+        <version>${jackson2.version}</version>
     </dependency>
 ```
 Then create a JsonSurfer with CBOR-backed JacksonParser and surfer as usual
