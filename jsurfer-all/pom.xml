@@ -37,6 +37,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.github.jsurfer</groupId>
+            <artifactId>jsurfer-jackson3</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-cbor</artifactId>
             <version>${jackson2.version}</version>
