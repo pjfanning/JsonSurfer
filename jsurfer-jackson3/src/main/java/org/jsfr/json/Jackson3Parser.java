@@ -27,6 +27,7 @@ package org.jsfr.json;
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
 import tools.jackson.core.ObjectReadContext;
+import tools.jackson.core.TokenStreamFactory;
 import tools.jackson.core.json.JsonFactory;
 import tools.jackson.core.json.async.NonBlockingByteArrayJsonParser;
 import org.jsfr.json.provider.JsonProvider;
@@ -214,9 +215,9 @@ public class Jackson3Parser implements JsonParserAdapter {
     private static final JsonFactory JSON_FACTORY = new JsonFactory();
     public static final Jackson3Parser INSTANCE = new Jackson3Parser(JSON_FACTORY);
 
-    private JsonFactory factory;
+    private TokenStreamFactory factory;
 
-    public Jackson3Parser(JsonFactory factory) {
+    public Jackson3Parser(TokenStreamFactory factory) {
         this.factory = factory;
     }
 
